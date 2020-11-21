@@ -4,6 +4,58 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
+This is a simple microservice that checks if a comment contains any bad words or swearing.
+It does not use any fancy algorithm or nlp technique, for the moment, basic comparison between a list of bad words
+and the comment.
+
+There are two endpoints.
+* `/api/profanity/isProfanity/{word}` - for checking if a single word is a bad word and accepts a GET request
+* `/api/profanity/analyseComment` - for analysing a comment written by used and accepts POST reques
+
+Output Examples:
+* `/api/profanity/isProfanity/{word}`
+```JSON
+{
+    "profanity": false,
+    "wordSupplied": "cosmin"
+}
+```
+```JSON
+{
+    "profanity": true,
+    "wordSupplied": "fuck"
+}
+```
+
+
+A nice comment :)
+```JSON
+{
+    "comment": "@FroMage did you start working on it? I'm the one that contribute the json representation of resteasy NotFoundExceptionMapper error page so I'm curious what is the issue.",
+    "containBadWords": false,
+    "numberOfWords": 27,
+    "percentage": 0.0
+}
+```
+
+A bad comment
+```JSON
+{
+   "comment":"fuck this idiotic class",
+   "containBadWords":true,
+   "numberOfBadWords":2,
+   "numberOfWords":4,
+   "percentage":50.0
+}
+```
+
+Requirements:
+* Java >=11
+
+Not required, but for a smooth development experience, Intellij IDEA.
+
+If you like this project you can star it. Contributions are welcomed.
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:

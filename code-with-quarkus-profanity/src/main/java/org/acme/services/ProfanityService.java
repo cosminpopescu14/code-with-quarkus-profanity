@@ -21,26 +21,29 @@ public class ProfanityService {
 
     public CommentResponse analyse(String comment) {
 
-        var pattern = Pattern.compile(PATTERN, Pattern.MULTILINE);
+        var pattern = Pattern.compile(PATTERN, Pattern.CASE_INSENSITIVE);
         var matcher = pattern.matcher(comment);
-
-
 
         List<String> putMatches = new ArrayList<>();
         while (matcher.find()) {
             putMatches.add(matcher.group());
         }
 
-        var res =  badWords.stream().anyMatch(putMatches::contains);
-        var numberOfWordsInComment = putMatches.size();
-        var numberOfBadWordsInComment = badWords
+        var res =  badWords.stream()
+                .map(String::toLowerCase)
+                .anyMatch(putMatches::contains);
+        double numberOfWordsInComment = putMatches.size();
+        double numberOfBadWordsInComment = badWords
                 .stream()
+                .map(String::toLowerCase)
                 .filter(putMatches::contains)
                 .count();
 
         var percentage = numberOfBadWordsInComment / numberOfWordsInComment * 100L;
         System.out.println(percentage);
-        return new CommentResponse(comment, res, numberOfWordsInComment, percentage);
+        System.out.println(numberOfBadWordsInComment);
+        return new CommentResponse(comment, res,
+                (int) numberOfWordsInComment, (int) numberOfBadWordsInComment, percentage);
     }
 
 }

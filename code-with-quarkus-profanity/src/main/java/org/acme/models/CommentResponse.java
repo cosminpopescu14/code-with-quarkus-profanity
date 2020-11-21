@@ -5,7 +5,14 @@ public class CommentResponse {
 
     private boolean containBadWords;
     private int numberOfWords;
+
+    public int getNumberOfBadWords() {
+        return numberOfBadWords;
+    }
+
+    private int numberOfBadWords;
     private double percentage;
+
 
     public String getComment() {
         return comment;
@@ -31,10 +38,15 @@ public class CommentResponse {
         this.percentage = percentage;
     }
 
-    public CommentResponse(String comment, boolean containBadWords, int numberOfWords, double percentage) {
+    public int getNumberOfWords() {
+        return numberOfWords;
+    }
+
+    public CommentResponse(String comment, boolean containBadWords, int numberOfWords, int numberOfBadWords, double percentage) {
         this.comment = comment;
         this.containBadWords = containBadWords;
         this.percentage = percentage;
+        this.numberOfBadWords = numberOfBadWords;
         this.numberOfWords = numberOfWords;
     }
 

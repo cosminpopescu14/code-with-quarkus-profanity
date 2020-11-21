@@ -1,6 +1,9 @@
 package org.acme.models;
 
-public class Response {
+/**
+ * Class for modelling the response for a single word
+ */
+public class WordResponse {
 
     private String wordSupplied;
     private boolean isProfanity;
@@ -22,7 +25,7 @@ public class Response {
         isProfanity = profanity;
     }
 
-    public Response(String wordSupplied, boolean isProfanity) {
+    public WordResponse(String wordSupplied, boolean isProfanity) {
         this.wordSupplied = wordSupplied;
         this.isProfanity = isProfanity;
     }

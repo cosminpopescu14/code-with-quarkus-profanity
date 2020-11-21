@@ -1,6 +1,6 @@
 package org.acme.api;
 
-import org.acme.models.Response;
+import org.acme.models.WordResponse;
 import org.acme.services.ProfanityService;
 
 import javax.inject.Inject;
@@ -20,8 +20,8 @@ public class ProfanityController {
     @GET
     @Path("/isProfanity/{word}")
     @Produces({MediaType.APPLICATION_JSON})
-    public Response isProfanity(@PathParam("word") String word) {
+    public WordResponse isProfanity(@PathParam("word") String word) {
         boolean isProfanity = profanityService.isProfanity(word);
-        return new Response(word, isProfanity);
+        return new WordResponse(word, isProfanity);
     }
 }

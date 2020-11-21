@@ -2,7 +2,6 @@ package org.acme;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.acme.services.ProfanityService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;

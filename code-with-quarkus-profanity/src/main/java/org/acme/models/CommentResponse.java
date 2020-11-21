@@ -2,9 +2,10 @@ package org.acme.models;
 
 public class CommentResponse {
     private String comment;
-    private boolean containBadWords;
-    private double percentage;
 
+    private boolean containBadWords;
+    private int numberOfWords;
+    private double percentage;
 
     public String getComment() {
         return comment;
@@ -30,9 +31,20 @@ public class CommentResponse {
         this.percentage = percentage;
     }
 
-    public CommentResponse(String comment, boolean containBadWords, double percentage) {
+    public CommentResponse(String comment, boolean containBadWords, int numberOfWords, double percentage) {
         this.comment = comment;
         this.containBadWords = containBadWords;
         this.percentage = percentage;
+        this.numberOfWords = numberOfWords;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentResponse{" +
+               "comment='" + comment + '\'' +
+               ", containBadWords=" + containBadWords +
+               ", numberOfWords=" + numberOfWords +
+               ", percentage=" + percentage +
+               '}';
     }
 }

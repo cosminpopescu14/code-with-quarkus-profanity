@@ -4,9 +4,7 @@ import org.acme.models.CommentResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 @ApplicationScoped
@@ -27,15 +25,22 @@ public class ProfanityService {
         var matcher = pattern.matcher(comment);
 
 
-        int numberOfWordsInComment;
+
         List<String> putMatches = new ArrayList<>();
         while (matcher.find()) {
-            System.out.println(matcher.group());
             putMatches.add(matcher.group());
         }
 
         var res =  badWords.stream().anyMatch(putMatches::contains);
-        return new CommentResponse(comment, res, 0.5);
+        var numberOfWordsInComment = putMatches.size();
+        var numberOfBadWordsInComment = badWords
+                .stream()
+                .filter(putMatches::contains)
+                .count();
+
+        var percentage = numberOfBadWordsInComment / numberOfWordsInComment * 100L;
+        System.out.println(percentage);
+        return new CommentResponse(comment, res, numberOfWordsInComment, percentage);
     }
 
 }

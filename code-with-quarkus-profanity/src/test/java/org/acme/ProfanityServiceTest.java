@@ -3,6 +3,8 @@ package org.acme;
 import io.quarkus.test.junit.QuarkusTest;
 import org.acme.services.ProfanityService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.inject.Inject;
 
@@ -17,18 +19,16 @@ public class ProfanityServiceTest {
 
     @Test
     public void test_if_a_word_is_a_good_word() {
-
-
         assertFalse(profanityService.isProfanity("nice"));
         assertFalse(profanityService.isProfanity("word"));
         assertFalse(profanityService.isProfanity("dog"));
+        assertFalse(profanityService.isProfanity("constitution"));
     }
 
-    @Test
-    public void test_if_a_word_is_a_bad_word() {
-        assertTrue(profanityService.isProfanity("Fuck"));
-        assertTrue(profanityService.isProfanity("pussy"));
-        assertTrue(profanityService.isProfanity("bitch"));
+    @ParameterizedTest
+    @ValueSource(strings = {"p.u.s.s.y.", "s-h-i-t", "xxx", "v14gra", "shi+", "s_h_i_t", "s-h-1-t", "s-h-i-t", "s-o-b", "s.h.i.t.", "s.o.b."})
+    public void test_if_a_word_is_a_bad_word(String word) {
+        assertTrue(profanityService.isProfanity(word));
     }
 
     @Test

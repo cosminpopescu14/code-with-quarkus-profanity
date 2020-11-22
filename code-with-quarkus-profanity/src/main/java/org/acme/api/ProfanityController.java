@@ -1,7 +1,6 @@
 package org.acme.api;
 
 import org.acme.models.CommentRequest;
-import org.acme.models.CommentResponse;
 import org.acme.models.WordResponse;
 import org.acme.services.ProfanityService;
 

@@ -40,8 +40,12 @@ public class ProfanityServiceTest {
         var redditCommentAboutNodeJsAndJava = "The cool thing about Java imo is that there's always something new and it seems like the Java ecosystem is changing faster than it was but at the same time old knowledge isn't obsolete once something new is out. There are now bi yearly releases of Java for example. One example for what i mean is Spring Boot,\n" +
                                               " the biggest Web Framework in Java right now (there's not really anything web specific to it. It's basically a general purpose Dependency injection framework but web is what it's mostly used for). It was released in 2014 and built an easy to use Convention over Configuration wrapper around the Spring Framework that has been around for a long time and an embedded Webserver(only if you use it for web obviously).\n" +
                                               "  Spring Boot hasn't really changed all that much since then but the ecosystem around it, the tools, resources and a whole lot of smaller and bigger details about the framework have become so much better since then. They don't really shy away from breaking things but just like everything in the Java ecosystem they are always concerned with not breaking anything without a very good reason to do so.\n";
+
+        var redditCommentAboutLearningCsharp = "You are just like me. I started learning by myself at 39. At 41 I went to school for two years here in Australia, not a degree but tertiary qualification. I am about to start my second job with a total of 2 years experience. You have a lot to learn yes but a lot more to give. Think in terms of life experience and transferrable skills. I’m 46 now. I made it. So can you. I wish you all the best sir";
+
         assertFalse(profanityService.analyse(redditComment).isContainBadWords());
         assertFalse(profanityService.analyse(redditCommentAboutNodeJsAndJava).isContainBadWords());
+        assertFalse(profanityService.analyse(redditCommentAboutLearningCsharp).isContainBadWords());
     }
 
     @Test

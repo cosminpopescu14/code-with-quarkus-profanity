@@ -19,16 +19,16 @@ public class ProfanityServiceTest {
 
     @Test
     public void test_if_a_word_is_a_good_word() {
-        assertFalse(profanityService.isProfanity("nice"));
-        assertFalse(profanityService.isProfanity("word"));
-        assertFalse(profanityService.isProfanity("dog"));
-        assertFalse(profanityService.isProfanity("constitution"));
+        assertFalse(profanityService.isProfanityWord("nice"));
+        assertFalse(profanityService.isProfanityWord("word"));
+        assertFalse(profanityService.isProfanityWord("dog"));
+        assertFalse(profanityService.isProfanityWord("constitution"));
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"p.u.s.s.y.", "s-h-i-t", "xxx", "v14gra", "shi+", "s_h_i_t", "s-h-1-t", "s-h-i-t", "s-o-b", "s.h.i.t.", "s.o.b."})
     public void test_if_a_word_is_a_bad_word(String word) {
-        assertTrue(profanityService.isProfanity(word));
+        assertTrue(profanityService.isProfanityWord(word));
     }
 
     @Test

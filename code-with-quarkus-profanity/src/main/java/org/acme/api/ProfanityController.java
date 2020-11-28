@@ -24,7 +24,7 @@ public class ProfanityController {
         if (word == null) {
             return Response.serverError().entity("commentRequest cannot be null").build();
         }
-        boolean isProfanity = profanityService.isProfanity(word);
+        boolean isProfanity = profanityService.isProfanityWord(word);
         return  Response.ok(new WordResponse(word, isProfanity)).build();
     }
 

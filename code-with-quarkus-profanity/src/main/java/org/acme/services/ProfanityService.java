@@ -1,6 +1,8 @@
 package org.acme.services;
 
 import org.acme.models.CommentResponse;
+import org.eclipse.collections.api.factory.Lists;
+import org.eclipse.collections.api.list.ImmutableList;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -10,11 +12,8 @@ import java.util.regex.Pattern;
 
 @ApplicationScoped
 public class ProfanityService {
-
-    //List<String> badWords = List.of("fuck", "Arse","Bloody","Bugger","Cow","Crap","Damn","Ginger","Git","God","Goddam","Minger","Sod-off","Arsehole","Balls","Bint","Bitch","Bollocks","Bullshit","Feck","Munter","Pissed","pissed off","Shit","Son of a bitch","Tits","Bastard","Beaver","Beef curtains","Bellend","Bloodclaat","Clunge","Cock","Dick","Dickhead","Fanny","Flaps","Gash","Knob","Minge","Prick","Punani","Pussy","Snatch","Twat","Cunt","Fuck","Motherfucker");
-
-
-    List<String> badWords = List.of("4r5e","50 yard cunt","punt","5h1t","5hit","a_s_s","a2m","a$$","a55","a$$hole","a55hole","adult","aeolus","ahole","amateur","anal","anal impaler","anal","leakage","analprobe","anilingus","anus","ar5e","areola","areole","arian","arrse","arse","arsehole","aryan","ass","assfuck","ass hole","ass-fucker","assbang","assbanged","assbangs","asses","assfuck","assfucker","assfukka","assh0le","asshat","assho1e","asshole","assholes","assmaster","assmucus","assmunch","asswhole","asswipe","asswipes","autoerotic","azazel","azz","b!tch","b00bs","b17ch","b1tch","babe","babes","ballbag","ballsack","bang bang","box","bangbros","banger","bareback","barf","bastard","bastards","bawdy","beaner","beardedclam","beastial","beastiality","beatch","beater","beaver","curtain","beer","beeyotch","bellend","beotch","bestial","bestiality","bi+ch","biatch","big tits","bigtits","bimbo","bimbos","birdlock","bitch","bitch","tit","bitched","bitcher","bitchers","bitches","bitchin","bitching","bitchy","bloody","blow",
+    
+    private final ImmutableList<String> badWords = Lists.immutable.of("4r5e","50 yard cunt","punt","5h1t","5hit","a_s_s","a2m","a$$","a55","a$$hole","a55hole","adult","aeolus","ahole","amateur","anal","anal impaler","anal","leakage","analprobe","anilingus","anus","ar5e","areola","areole","arian","arrse","arse","arsehole","aryan","ass","assfuck","ass hole","ass-fucker","assbang","assbanged","assbangs","asses","assfuck","assfucker","assfukka","assh0le","asshat","assho1e","asshole","assholes","assmaster","assmucus","assmunch","asswhole","asswipe","asswipes","autoerotic","azazel","azz","b!tch","b00bs","b17ch","b1tch","babe","babes","ballbag","ballsack","bang bang","box","bangbros","banger","bareback","barf","bastard","bastards","bawdy","beaner","beardedclam","beastial","beastiality","beatch","beater","beaver","curtain","beer","beeyotch","bellend","beotch","bestial","bestiality","bi+ch","biatch","big tits","bigtits","bimbo","bimbos","birdlock","bitch","bitch","tit","bitched","bitcher","bitchers","bitches","bitchin","bitching","bitchy","bloody","blow",
             "blowjob","blow me","blow mud","blowjob","blowjobs","blue waffle","blumpkin","bod","bodily","boink","boiolas","bollock","bollocks","bollok","bone","boned","boner","boners","bong","boob","boobies","boobs","booby","booger","bookie","booobs","boooobs","booooobs","booooooobs","bootee","bootie","booty","booze","boozer","boozy","bosom","bosomy","bowel","bowels","bra","brassiere","breast","breasts","buceta","bugger","bukkake","bull-shit","bullshit","bullshits","bullshitted","bullturds","bum","bung",
             "bunnyfucker","bust a load","busty","butt","buttfuck","butt-fuck","butt_fuck","buttfucker","butthole","buttmuch","buttplug","c-0-c-k","c-o-c-k","c-u-n-t","c.0.c.k","c.o.c.k.","c.u.n.t","c0ck","c0cksucker","caca","cahone","cameltoe",
             "carpetmuncher","carpet muncher","cawk","cervix","chinc","chincs","chink","choade","chode","chodes",
@@ -47,9 +46,10 @@ public class ProfanityService {
 
     private final String PATTERN = "((\\b[^\\s]+\\b)((?<=\\.\\w).)?)";
 
-    public boolean isProfanity(String word) {
+    public boolean isProfanityWord(String word) {
         var badWord = String.format("\b(%s)\b", word);
         Arrays.stream(word.split(badWord)).forEach(System.out::println);
+
 
         return Arrays.stream(word.split(badWord))
                 .map(String::toLowerCase)
@@ -83,5 +83,4 @@ public class ProfanityService {
         return new CommentResponse(comment, res,
                 (int) numberOfWordsInComment, (int) numberOfBadWordsInComment, percentage);
     }
-
 }

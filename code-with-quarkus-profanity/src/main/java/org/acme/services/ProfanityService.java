@@ -81,7 +81,7 @@ public class ProfanityService {
                 .map(String::toLowerCase)
                 .anyMatch(putMatches::contains);*/
 
-        int numberOfWordsInComment = putMatches.size();
+        double numberOfWordsInComment = putMatches.size();
 
         var numberOfBadWordsInComment = putMatches
                 .collect(String::toLowerCase)
@@ -101,7 +101,7 @@ public class ProfanityService {
 
         return new CommentResponse(comment,
                       res,
-                numberOfWordsInComment,
+                (int) numberOfWordsInComment,
                 numberOfBadWordsInComment.occurrencesOf(true),
                         percentage);
     }

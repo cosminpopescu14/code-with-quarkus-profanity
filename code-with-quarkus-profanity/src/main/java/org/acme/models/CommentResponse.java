@@ -11,6 +11,16 @@ public class CommentResponse {
     }
 
     private int numberOfBadWords;
+
+    public String[] getIdentifiedBadWordsInComment() {
+        return identifiedBadWordsInComment;
+    }
+
+    public void setIdentifiedBadWordsInComment(String[] identifiedBadWordsInComment) {
+        this.identifiedBadWordsInComment = identifiedBadWordsInComment;
+    }
+
+    private String[] identifiedBadWordsInComment;
     private double percentage;
 
 

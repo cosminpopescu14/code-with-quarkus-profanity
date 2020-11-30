@@ -8,8 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.inject.Inject;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @QuarkusTest
 public class ProfanityServiceTest {
@@ -55,5 +54,12 @@ public class ProfanityServiceTest {
                       + "                  And live me the fuck alone";
 
         assertTrue(profanityService.analyse(comment).isContainBadWords());
+    }
+
+    @Test
+    public void throwException_when_converting_to_int_invalid_input() {
+        var input = "1aaaaaa";
+        assertThrows(NumberFormatException.class,
+                () -> Integer.parseInt(input));
     }
 }

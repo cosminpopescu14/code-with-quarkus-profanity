@@ -3,6 +3,7 @@ package org.acme.services;
 import org.acme.models.CommentResponse;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
+import org.eclipse.collections.api.list.MutableList;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
@@ -48,13 +49,18 @@ public class ProfanityService {
 
     public boolean isProfanityWord(String word) {
         var badWord = String.format("\b(%s)\b", word);
-        Arrays.stream(word.split(badWord)).forEach(System.out::println);
 
+        var wordList = Lists.mutable.of(word.split(badWord));
 
-        return Arrays.stream(word.split(badWord))
+        return wordList
+                .collect(String::toLowerCase)
+                .collect(String::strip)
+                .anySatisfy(badWords::contains);
+        
+        /*return Arrays.stream(word.split(badWord))
                 .map(String::toLowerCase)
                 .map(String::strip)
-                .anyMatch(badWords::contains);
+                .anyMatch(badWords::contains);*/
     }
 
     public CommentResponse analyse(String comment) {
@@ -62,25 +68,41 @@ public class ProfanityService {
         var pattern = Pattern.compile(PATTERN, Pattern.CASE_INSENSITIVE);
         var matcher = pattern.matcher(comment);
 
-        List<String> putMatches = new ArrayList<>();
+        //List<String> putMatches = new ArrayList<>();
+        MutableList<String> putMatches = Lists.mutable.empty();
         while (matcher.find()) {
             putMatches.add(matcher.group());
         }
 
-        var res =  badWords.stream()
+        var res =  badWords
+                .collect(String::toLowerCase)
+                .anySatisfy(putMatches::contains);
+                /*.stream()
                 .map(String::toLowerCase)
-                .anyMatch(putMatches::contains);
-        double numberOfWordsInComment = putMatches.size();
-        double numberOfBadWordsInComment = badWords
-                .stream()
+                .anyMatch(putMatches::contains);*/
+
+        int numberOfWordsInComment = putMatches.size();
+
+        var numberOfBadWordsInComment = putMatches
+                .collect(String::toLowerCase)
+                .countBy(badWords::contains);
+                //.size();
+
+                /*.stream()
                 .map(String::toLowerCase)
                 .filter(putMatches::contains)
-                .count();
+                .count();*/
 
-        var percentage = numberOfBadWordsInComment / numberOfWordsInComment * 100L;
-        System.out.println(percentage);
-        System.out.println(numberOfBadWordsInComment);
-        return new CommentResponse(comment, res,
-                (int) numberOfWordsInComment, (int) numberOfBadWordsInComment, percentage);
+
+        var percentage = numberOfBadWordsInComment.occurrencesOf(true) / numberOfWordsInComment * 100L;
+
+        //System.out.println(percentage);
+        //System.out.println(numberOfBadWordsInComment.select(p -> p));
+
+        return new CommentResponse(comment,
+                      res,
+                numberOfWordsInComment,
+                numberOfBadWordsInComment.occurrencesOf(true),
+                        percentage);
     }
 }

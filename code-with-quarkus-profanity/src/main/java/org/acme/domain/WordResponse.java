@@ -1,4 +1,4 @@
-package org.acme.models;
+package org.acme.domain;
 
 /**
  * Class for modelling the response for a single word

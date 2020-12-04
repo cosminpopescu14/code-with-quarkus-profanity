@@ -1,6 +1,6 @@
-package org.acme.models;
+package org.acme.domain;
 
-public class CommentRequest {
+public class Comment {
 
 
     public String getComment() {

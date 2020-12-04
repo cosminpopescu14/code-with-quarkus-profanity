@@ -1,4 +1,4 @@
-package org.acme.models;
+package org.acme.domain;
 
 public class CommentResponse {
     private String comment;
